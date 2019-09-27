@@ -31,8 +31,8 @@ namespace Notes
             }
 
             listView.ItemsSource = listOfNotes
-                .OrderBy(d => d.Date)
-                .ToList();
+               .OrderByDescending(d => d.Category)
+               .ToList();
         }
 
         private async void OnNoteAddedClicked(object sender, EventArgs e)

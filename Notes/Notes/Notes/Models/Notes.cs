@@ -9,5 +9,6 @@ namespace Notes.Models
         public DateTime Date { get; set; }
         public bool IsInBasket { get; set; }
         public string Description { get; set; }
+        public string Category { get; set; }
     }
 }

@@ -25,6 +25,9 @@
                                         <Setter Property="TextColor" Value="Red" />
                                         <Setter Property="TextDecorations" Value="2" />
                                     </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsInBasket}" Value="false">
+                                        <Setter Property="TextDecorations" Value="0" />
+                                    </DataTrigger>
                                 </Label.Triggers>
                             </Label>
                         </Grid>

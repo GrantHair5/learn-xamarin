@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Notes.Models;
@@ -16,6 +18,26 @@ namespace Notes
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            var listOfCategories = new Dictionary<string, string>
+            {
+                { "None", "None" },
+                {"Bakery", "Bakery" },
+                { "Cleaning", "Cleaning" },
+                { "Drinks", "Drinks"},
+                { "Fruit", "Fruit" },
+                { "Frozen", "Frozen" },
+                { "Eggs", "Eggs" },
+                { "Meat", "Meat" },
+                { "Vegetables", "Vegetables" }
+            };
+
+            var picker = CategoryPicker;
+
+            foreach (var category in listOfCategories.Keys)
+            {
+                picker.Items.Add(category);
+            }
 
             var note = (Note)BindingContext;
 
@@ -35,6 +57,14 @@ namespace Notes
 
             AddToBasketButton.IsVisible = false;
             RemoveFromBasketButton.IsVisible = true;
+
+            picker.SelectedItem = note.Category;
+
+            picker.SelectedIndexChanged += (sender, args) =>
+            {
+                note.Category = picker.SelectedIndex == -1 ? "None"
+                    : picker.Items[picker.SelectedIndex];
+            };
         }
 
         private async void OnSaveButtonClicked(object sender, EventArgs e)

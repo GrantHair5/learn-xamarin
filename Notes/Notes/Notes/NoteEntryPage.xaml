@@ -7,6 +7,7 @@
         <Editor Placeholder="What else do we need?"
                 Text="{Binding Text}"
                 HeightRequest="100" />
+        <Picker x:Name="CategoryPicker" Title="Category"></Picker>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
