@@ -24,7 +24,7 @@
                     CornerRadius="8" />
         </Grid>
         <Button Text="Added to basket"
-                Clicked="OnDeleteButtonClicked"
+                Clicked="AddToBasketClicked"
                 StyleClass="DeleteButton"
                 CornerRadius="8"
                 Margin="10" />

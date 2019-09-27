@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Notes.Models;
 
@@ -19,15 +20,16 @@ namespace Notes
             base.OnAppearing();
 
             var files = Directory.EnumerateFiles(App.FolderPath, "*.notes.txt");
-            var notes = files.Select(filename =>
-                new Note
-                {
-                    Filename = filename,
-                    Text = File.ReadAllText(filename),
-                    Date = File.GetCreationTime(filename)
-                }).ToList();
+            var listOfNotes = new List<Note>();
 
-            listView.ItemsSource = notes
+            foreach (var file in files)
+            {
+                var note = JsonConvert.DeserializeObject<Note>(File.ReadAllText(file));
+                note.Filename = file;
+                listOfNotes.Add(note);
+            }
+
+            listView.ItemsSource = listOfNotes
                 .OrderBy(d => d.Date)
                 .ToList();
         }
@@ -64,9 +66,7 @@ namespace Notes
             var notes = files.Select(filename =>
                 new Note
                 {
-                    Filename = filename,
-                    Text = File.ReadAllText(filename),
-                    Date = File.GetCreationTime(filename)
+                    Filename = filename
                 }).ToList();
 
             foreach (var note in notes)
@@ -82,9 +82,30 @@ namespace Notes
             OnAppearing();
         }
 
-        private void RefreshListClicked(object sender, EventArgs e)
+        private async void RefreshListClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var answer = await DisplayAlert("Confirm", "Do you want to refresh all Items to original state?", "Yes", "No");
+            if (!answer)
+            {
+                return;
+            }
+
+            var files = Directory.EnumerateFiles(App.FolderPath, "*.notes.txt");
+
+            var notes = files.Select(filename =>
+                new Note
+                {
+                    Filename = filename
+                }).ToList();
+
+            foreach (var note in notes)
+            {
+                note.IsInBasket = false;
+            }
+
+            await DisplayAlert("Success", "All items refreshed", "OK");
+
+            OnAppearing();
         }
     }
 }
