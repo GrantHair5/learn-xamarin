@@ -23,10 +23,17 @@
                     StyleClass="DeleteButton"
                     CornerRadius="8" />
         </Grid>
-        <Button Text="Added to basket"
+        <Button Text="Add to basket"
                 Clicked="AddToBasketClicked"
                 StyleClass="DeleteButton"
                 CornerRadius="8"
-                Margin="10" />
+                Margin="10"
+                x:Name="AddToBasketButton" />
+        <Button Text="Remove from basket"
+                Clicked="RemoveFromBasketClicked"
+                StyleClass="DeleteButton"
+                CornerRadius="8"
+                Margin="10"
+                x:Name="RemoveFromBasketButton" />
     </StackLayout>
 </ContentPage>

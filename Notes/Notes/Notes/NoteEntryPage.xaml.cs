@@ -13,6 +13,30 @@ namespace Notes
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            var note = (Note)BindingContext;
+
+            if (note.Date == DateTime.MinValue)
+            {
+                AddToBasketButton.IsVisible = false;
+                RemoveFromBasketButton.IsVisible = false;
+                return;
+            }
+
+            if (!note.IsInBasket)
+            {
+                AddToBasketButton.IsVisible = true;
+                RemoveFromBasketButton.IsVisible = false;
+                return;
+            }
+
+            AddToBasketButton.IsVisible = false;
+            RemoveFromBasketButton.IsVisible = true;
+        }
+
         private async void OnSaveButtonClicked(object sender, EventArgs e)
         {
             var note = (Note)BindingContext;
@@ -53,6 +77,17 @@ namespace Notes
 
             // Update
             note.IsInBasket = true;
+            File.WriteAllText(note.Filename, JsonConvert.SerializeObject(note));
+
+            await Navigation.PopAsync();
+        }
+
+        private async void RemoveFromBasketClicked(object sender, EventArgs e)
+        {
+            var note = (Note)BindingContext;
+
+            // Update
+            note.IsInBasket = false;
             File.WriteAllText(note.Filename, JsonConvert.SerializeObject(note));
 
             await Navigation.PopAsync();
