@@ -1,9 +1,9 @@
 ﻿^ContentPage {
-    background-color: lightblue;
-    padding: 20
+    background-color: white;
+    padding: 20px
 }
 
 .DeleteButton {
-    background-color: white;
-    color:grey
+    background-color: lightcoral;
+    color: white
 }
