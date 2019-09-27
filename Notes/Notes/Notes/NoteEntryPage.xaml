@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Notes.NoteEntryPage"
-             Title="Note Entry">
+             Title="Add item to list">
     <StackLayout Margin="20">
-        <Editor Placeholder="Enter your note"
+        <Editor Placeholder="What else do we need?"
                 Text="{Binding Text}"
                 HeightRequest="100" />
-        <Grid>
+        <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -16,11 +16,17 @@
                     Clicked="OnSaveButtonClicked"
                     StyleClass="DeleteButton"
                     CornerRadius="8" />
+
             <Button Grid.Column="1"
                     Text="Delete"
                     Clicked="OnDeleteButtonClicked"
                     StyleClass="DeleteButton"
                     CornerRadius="8" />
         </Grid>
+        <Button Text="Added to basket"
+                Clicked="OnDeleteButtonClicked"
+                StyleClass="DeleteButton"
+                CornerRadius="8"
+                Margin="10" />
     </StackLayout>
 </ContentPage>

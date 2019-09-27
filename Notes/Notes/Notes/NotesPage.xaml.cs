@@ -18,18 +18,14 @@ namespace Notes
         {
             base.OnAppearing();
 
-            var notes = new List<Note>();
-
             var files = Directory.EnumerateFiles(App.FolderPath, "*.notes.txt");
-            foreach (var filename in files)
-            {
-                notes.Add(new Note
+            var notes = files.Select(filename =>
+                new Note
                 {
                     Filename = filename,
                     Text = File.ReadAllText(filename),
                     Date = File.GetCreationTime(filename)
-                });
-            }
+                }).ToList();
 
             listView.ItemsSource = notes
                 .OrderBy(d => d.Date)
@@ -53,6 +49,42 @@ namespace Notes
                     BindingContext = e.SelectedItem as Note
                 });
             }
+        }
+
+        private async void DeleteAllClicked(object sender, EventArgs e)
+        {
+            var answer = await DisplayAlert("Confirm", "Do you want to delete all Items?", "Yes", "No");
+            if (!answer)
+            {
+                return;
+            }
+
+            var files = Directory.EnumerateFiles(App.FolderPath, "*.notes.txt");
+
+            var notes = files.Select(filename =>
+                new Note
+                {
+                    Filename = filename,
+                    Text = File.ReadAllText(filename),
+                    Date = File.GetCreationTime(filename)
+                }).ToList();
+
+            foreach (var note in notes)
+            {
+                if (File.Exists(note.Filename))
+                {
+                    File.Delete(note.Filename);
+                }
+            }
+
+            await DisplayAlert("Success", "All items deleted", "OK");
+
+            OnAppearing();
+        }
+
+        private void RefreshListClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
