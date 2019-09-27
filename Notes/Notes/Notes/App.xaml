@@ -7,5 +7,6 @@
              x:Class="Notes.App">
     <Application.Resources>
 
+        <StyleSheet Source="/Assets/styles.css" />
     </Application.Resources>
 </Application>

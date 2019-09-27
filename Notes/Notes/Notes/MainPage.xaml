@@ -15,10 +15,14 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Text="Save Note"
-                    Clicked="OnSaveButtonClicked" />
+                    Clicked="OnSaveButtonClicked"
+                    StyleClass="DeleteButton"
+                    CornerRadius="8"/>
             <Button Grid.Column="1"
                     Text="Delete"
-                    Clicked="OnDeleteButtonClicked" />
+                    Clicked="OnDeleteButtonClicked"
+                    StyleClass="DeleteButton"
+                    CornerRadius="8" />
         </Grid>
     </StackLayout>
 </ContentPage>
