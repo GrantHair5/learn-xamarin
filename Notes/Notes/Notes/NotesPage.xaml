@@ -16,8 +16,20 @@
               ItemSelected="OnListViewItemSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding Text}"
-                          Detail="{Binding IsInBasket}" />
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid>
+                            <Label Text="{Binding Text}" x:Name="labelText" FontSize="Large">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsInBasket}" Value="true">
+                                        <Setter Property="TextColor" Value="Red" />
+                                        <Setter Property="TextDecorations" Value="2" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

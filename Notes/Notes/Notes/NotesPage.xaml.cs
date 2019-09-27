@@ -26,6 +26,7 @@ namespace Notes
             {
                 var note = JsonConvert.DeserializeObject<Note>(File.ReadAllText(file));
                 note.Filename = file;
+                note.Description = note.IsInBasket ? "Is In Basket" : "Not In Basket";
                 listOfNotes.Add(note);
             }
 
